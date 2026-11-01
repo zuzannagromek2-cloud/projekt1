@@ -10,7 +10,24 @@ void showPopulation(int day, int susceptible, int infected, int recovered, int t
 	cout << "Recovered: " << recovered << endl;
 	cout << "Total: " << total << endl;
 }
-int main() {
+void simulateDay(int day, int susceptible, int infected, int recovered, int total) {
+	double infectionRate = 0.20;
+	double recoveryRate = 0.10;
+	int newInfected = floor(infected * infectionRate);
+	int newRecovered = floor(recovered * recoveryRate);
+
+	int newInfections = min(newInfected, susceptible);
+	int newRecoveries = min(newRecovered, recovered);
+	susceptible = susceptible - newInfections;
+	infected = infected + newInfections - newRecoveries;
+	recovered = recovered + newRecoveries;
+	day++;
+}
+bool checkPopulation(int susceptible, int infected, int recovered){
+
+
+}
+int main() {                                                                                                                                                               
 	int susceptible = 80;
 	int infected = 10;
 	int recovered = 10;
@@ -28,10 +45,10 @@ int main() {
 	cout << "Your choice: " << endl;
 	cin >> choice;
 
+
 	switch (choice){
 		case 1:
 			cout << "Simulating next day.." << endl;
-			day++;
 			break;
 		case 2:
 			cout << "Enter infectionRate and recoveryRate:" << endl;
