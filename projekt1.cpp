@@ -2,7 +2,9 @@
 //
 
 #include <iostream>
+#include <cmath>
 using namespace std;
+//wyswietla populacje w pierwszym dniu
 void showPopulation(int day, int susceptible, int infected, int recovered, int total) {
 	cout << "Day: " << day << endl;
 	cout << "Susceptible: " << susceptible << endl;
@@ -10,61 +12,86 @@ void showPopulation(int day, int susceptible, int infected, int recovered, int t
 	cout << "Recovered: " << recovered << endl;
 	cout << "Total: " << total << endl;
 }
-void simulateDay(int day, int susceptible, int infected, int recovered, int total) {
-	double infectionRate = 0.20;
-	double recoveryRate = 0.10;
+//symuluje kolejny dzien epidemii
+void simulateDay(int& day, int& susceptible, int& infected, int& recovered, int& total, double infectionRate, double recoveryRate) {
 	int newInfected = floor(infected * infectionRate);
-	int newRecovered = floor(recovered * recoveryRate);
+	int newRecovered = floor(infected * recoveryRate);
 
 	int newInfections = min(newInfected, susceptible);
-	int newRecoveries = min(newRecovered, recovered);
+	int newRecoveries = min(newRecovered, infected);
 	susceptible = susceptible - newInfections;
 	infected = infected + newInfections - newRecoveries;
 	recovered = recovered + newRecoveries;
 	day++;
+	cout << endl;
 }
-bool checkPopulation(int susceptible, int infected, int recovered){
-
-
+//sprawdzenie poprawnosci danych
+bool checkPopulation(int susceptible, int infected, int recovered) {
+	if (susceptible >= 0 && infected >= 0 && recovered >= 0 && susceptible + infected + recovered == 100) {
+		return true;
+	}
+	else {
+		cout << "Abnormal population status!" << endl;
+		return false;
+	}
 }
-int main() {                                                                                                                                                               
+//zamiana danych przez uzytkownika
+void changeParameters(double& infectionRate, double& recoveryRate) {
+	cout << "Change parameters - infectionRate and recoveryRate in the interval [0,1]; " << endl;
+	cin >> infectionRate >> recoveryRate;
+	if (infectionRate > 1 && recoveryRate > 1 || infectionRate < 0&& recoveryRate < 0) {
+		cout << "Your parameters are incorrect!" << endl;
+	}
+}
+	
+
+int main() {
 	int susceptible = 80;
 	int infected = 10;
 	int recovered = 10;
 	int day = 0;
-	int total = susceptible + infected + recovered;
 	double infectionRate = 0.20;
 	double recoveryRate = 0.10;
 	int choice;
-	showPopulation(day, susceptible, infected, recovered, total);
+	do {
+		int total = susceptible + infected + recovered;
+		showPopulation(day, susceptible, infected, recovered, total);
 
-	cout << "=== Epidemic Symulator ===" << endl;
-	cout << "1. Simulate next day" << endl;
-	cout << "2. Change model parameters" << endl;
-	cout << "3. Exit" << endl;
-	cout << "Your choice: " << endl;
-	cin >> choice;
+		cout << "=== Epidemic Symulator ===" << endl;
+		cout << "1. Simulate next day" << endl;
+		cout << "2. Change model parameters" << endl;
+		cout << "3. Exit" << endl;
+		cout << "Your choice: " << endl;
+		cin >> choice;
+		cout << endl;
 
 
-	switch (choice){
+		switch (choice) {
 		case 1:
 			cout << "Simulating next day.." << endl;
+			simulateDay(day, susceptible, infected, recovered, total, infectionRate, recoveryRate);
+			checkPopulation(susceptible, infected, recovered);
 			break;
 		case 2:
-			cout << "Enter infectionRate and recoveryRate:" << endl;
-			cin >> infectionRate >> recoveryRate;
+			changeParameters(infectionRate, recoveryRate);
+			simulateDay(day, susceptible, infected, recovered, total, infectionRate, recoveryRate);
+			checkPopulation(susceptible, infected, recovered);
 			break;
 		case 3:
 			cout << "Exiting epidemic simulator.." << endl;
 			break;
 		default:
-		 cout << "Incorrect choice!" << endl;
+			cout << "Incorrect choice!" << endl;
 			break;
-}
+		}
+	}
+	
+		while (choice != 3);
 
 
-	return 0;
-}
+		return 0;
+	}
+
 
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
