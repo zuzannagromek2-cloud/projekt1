@@ -36,12 +36,15 @@ bool checkPopulation(int susceptible, int infected, int recovered) {
 	}
 }
 //zamiana danych przez uzytkownika
-void changeParameters(double& infectionRate, double& recoveryRate) {
+bool changeParameters(double& infectionRate, double& recoveryRate) {
 	cout << "Change parameters - infectionRate and recoveryRate in the interval [0,1]; " << endl;
 	cin >> infectionRate >> recoveryRate;
-	if (infectionRate > 1 && recoveryRate > 1 || infectionRate < 0&& recoveryRate < 0) {
+	if (infectionRate > 1 || recoveryRate > 1 || infectionRate < 0 || recoveryRate < 0) {
 		cout << "Your parameters are incorrect!" << endl;
+		return false;
 	}
+	cout << "Parameters changed" << endl;
+	return true;
 }
 	
 
@@ -74,8 +77,6 @@ int main() {
 			break;
 		case 2:
 			changeParameters(infectionRate, recoveryRate);
-			simulateDay(day, susceptible, infected, recovered, total, infectionRate, recoveryRate);
-			checkPopulation(susceptible, infected, recovered);
 			break;
 		case 3:
 			cout << "Exiting epidemic simulator.." << endl;
