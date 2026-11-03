@@ -59,7 +59,7 @@ int main() {
 	do {
 		int total = susceptible + infected + recovered;
 		showPopulation(day, susceptible, infected, recovered, total);
-
+		cout << endl;
 		cout << "=== Epidemic Symulator ===" << endl;
 		cout << "1. Simulate next day" << endl;
 		cout << "2. Change model parameters" << endl;
