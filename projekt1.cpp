@@ -56,6 +56,16 @@ int main() {
 	double infectionRate = 0.20;
 	double recoveryRate = 0.10;
 	int choice;
+	int population_History[101][3];  //[dzien][3]
+	population_History[0][0] = 80;
+	population_History[0][1] = 10;
+	population_History[0][2] = 10;
+	population_History[day][0] = susceptible;
+	population_History[day][1] = infected;
+	population_History[day][2] = recovered;
+	int dailyNewInfections[100];
+	int dailyNewRecoveries[100];
+
 	do {
 		int total = susceptible + infected + recovered;
 		showPopulation(day, susceptible, infected, recovered, total);
