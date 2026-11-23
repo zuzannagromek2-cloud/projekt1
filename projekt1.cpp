@@ -104,6 +104,7 @@ int main() {
 				dailyNewRecoveries[day - 1] = newRecoveries;
 			}
 			break;
+		}
 
 		case 2:
 			changeParameters(infectionRate, recoveryRate);
@@ -155,4 +156,4 @@ int main() {
 //   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
 //   4. Użyj okna Lista błędów, aby zobaczyć błędy
 //   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln 
+//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
